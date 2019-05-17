@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const BCCServices =require('./BCCServices.js');
 
 
 (async function manin(){
@@ -19,22 +20,65 @@ const puppeteer = require('puppeteer');
         url=url+'secure/OutreachWorkerServices/RegisterEdit2.aspx?ID=1926731';
         await page.goto(url);
         // await page.waitFor(2000);
-        await page.waitForNavigation();
-
+        await page.waitFor('table.grid');
         
+        await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
+            for(i=0; i<el.length; i++){
+                el[i].value=3; 
+            }
+        });
+//  Now setting Needle Out Values here
+        await page.$$eval("input[data-bind='value: SyringeOut']",el=>{
+            for(i=0; i<el.length; i++){
+                el[i].value=3; 
+            }
+        });
+// Setting Syring Type to 3CC
+        await page.$$eval("select[name='ctl00$cphRightContent$ddlSringeType']",el=>{
+            for(i=0; i<el.length; i++){
+                el[i].value="5CC"; 
+            }
+        });
 
-        // var eles = await page.$$eval("input[data-bind=value: NeedleOut]");
-   
-        console.log(await page.evaluate('1 + 2'));
+// Setting SpritSwab values 
 
-        var syrings = await page.evaluate(function() {
-            var ele = document.querySelectorAll("input[data-bind='value: NeedleOut']");
-            // setting Value to 3 for NeedleOut
+        await page.$$eval("input[data-bind='value: SpiritSwab']",el=>{
+            for(i=0; i<el.length; i++){
+                el[i].value=3; 
+            }
+        });
+            
+// Setting Band Aid Values  Bandage
+            await page.$$eval("input[data-bind='value: Bandage']",el=>{
+                for(i=0; i<el.length; i++){
+                    el[i].value=3; 
+                }
+            });
+
+        await page.evaluate(()=>{
+            let bccservice;
+            let message="HIV";
+            if(message=="STI"){
+                bccservice="IsSTIs";
+            }else if(message=="HIV")
+            {
+                bccservice="IsHIV";
+            }else if(message=="SIP") 
+            {
+                bccservice="IsSIP";
+            }else if(message=="Sex")
+            {
+                bccservice="IsSaferSex";
+            }
         
-          });
-          console.log(await page.evaluate(syrings[2]));
+            var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
+            for (i=0; i<sti.length; i++) 
+                {
+                    sti[i].checked=true; 
+                }
+        });
            
-        // // await page.waitFor(() => !!document.querySelector('.highcharts-point'));
+        await page.waitFor(2000);
         await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
         await browser.close();
     }catch(e){
