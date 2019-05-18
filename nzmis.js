@@ -7,6 +7,7 @@ const BCCServices =require('./BCCServices.js');
     try{
 
         var url ='http://www.nzmis.com/';
+        var url2='secure/OutreachWorkerServices/RegisterEdit2.aspx?ID=1929080&no=6';
         const browser = await puppeteer.launch({headless:false,args: ['--start-maximized']});
         const page= await browser.newPage();
         await page.setViewport({ width: 1600, height: 900});
@@ -17,7 +18,7 @@ const BCCServices =require('./BCCServices.js');
         await page.click('.submit');
         //wait for Dashboard
         await page.waitFor(()=>!!document.querySelector('.countBox'));
-        url=url+'secure/OutreachWorkerServices/RegisterEdit2.aspx?ID=1926731';
+        url=url+url2;
         await page.goto(url);
         // await page.waitFor(2000);
         await page.waitFor('table.grid');
@@ -26,6 +27,7 @@ const BCCServices =require('./BCCServices.js');
             for(i=0; i<el.length; i++){
                 el[i].value=3; 
             }
+        
         });
 //  Now setting Needle Out Values here
         await page.$$eval("input[data-bind='value: SyringeOut']",el=>{
@@ -36,7 +38,7 @@ const BCCServices =require('./BCCServices.js');
 // Setting Syring Type to 3CC
         await page.$$eval("select[name='ctl00$cphRightContent$ddlSringeType']",el=>{
             for(i=0; i<el.length; i++){
-                el[i].value="5CC"; 
+                el[i].value="3CC"; 
             }
         });
 
@@ -80,7 +82,7 @@ const BCCServices =require('./BCCServices.js');
            
         await page.waitFor(2000);
         await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
-        await browser.close();
+        // await browser.close();
     }catch(e){
         console.log('our Error',e );
     }

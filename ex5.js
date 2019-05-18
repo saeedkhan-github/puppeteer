@@ -42,19 +42,27 @@ const puppeteer = require('puppeteer');
             //   });
             // Wait for the Table/Form to appear
 
-            await page.waitForSelector("input[data-bind='value: NeedleOut']").then(()=>{
+            await page.waitForSelector("input[data-bind='value: NeedleOut']");
+             
+            await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
+                console.log(typeof el);
+                    el[3].value=3;
+
+                
+             
+            });
                 // var el = document.querySelectorAll("input[data-bind='value: NeedleOut']");
                 // for(i=0; i<el.length; i++){
                 //            el[i].value=3; 
 
-             await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
-                        for(i=0; i<el.length; i++){
-                             el[i].value=3; 
-                    }
-                     });
+            //  await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
+            //             for(i=0; i<el.length; i++){
+            //                  el[i].value=3; 
+            //         }
+            //          });
 
-                       }
-            });
+            //            }
+            // });
             // Setting Values for Needle Out
                     // await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
                     //     for(i=0; i<el.length; i++){
