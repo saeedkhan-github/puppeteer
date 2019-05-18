@@ -5,10 +5,10 @@ const puppeteer = require('puppeteer');
 
     try{
 
-        const browser = await puppeteer.launch({headless:true,args: ['--start-maximized']});
+        const browser = await puppeteer.launch({headless:false,args: ['--start-maximized']});
         const page= await browser.newPage();
 
-        await page.setViewport({ width: 1600, height: 900});
+        await page.setViewport({ width: 1366, height: 768});
         await page.goto('http://www.nzmis.com/');
       
        await page.type('#LoginUser_UserName','91-20-DEO');
@@ -33,9 +33,39 @@ const puppeteer = require('puppeteer');
             await page.waitFor('select#ctl00_cphRightContent_ddlArea');
             await page.select('#ctl00_cphRightContent_ddlArea', '1074');
             await page.select('#ctl00_cphRightContent_ddlSpot','1626');
-            await page.waitFor(3000);
-     await page.screenshot({ path: 'UserName.png', fullPage: true });
-        await browser.close();
+            // await page.waitFor(3000);
+
+            // // after Adding spot location timing wait for alert and accept it. 
+            // await page.on('dialog', async dialog => {
+              
+            //     await dialog.accept();
+            //   });
+            // Wait for the Table/Form to appear
+
+            await page.waitForSelector("input[data-bind='value: NeedleOut']").then(()=>{
+                // var el = document.querySelectorAll("input[data-bind='value: NeedleOut']");
+                // for(i=0; i<el.length; i++){
+                //            el[i].value=3; 
+
+             await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
+                        for(i=0; i<el.length; i++){
+                             el[i].value=3; 
+                    }
+                     });
+
+                       }
+            });
+            // Setting Values for Needle Out
+                    // await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
+                    //     for(i=0; i<el.length; i++){
+                    //         el[i].value=3; 
+                    //     }
+                    // });
+
+       
+
+            await page.screenshot({ path: 'UserName.png', fullPage: true });
+        // await browser.close();
     }catch(e){
         console.log('our Error',e );
     }

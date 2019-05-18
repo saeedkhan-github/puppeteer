@@ -6,20 +6,41 @@ const BCCServices =require('./BCCServices.js');
 
     try{
 
-        var url ='http://www.nzmis.com/';
         const browser = await puppeteer.launch({headless:false,args: ['--start-maximized']});
         const page= await browser.newPage();
-        await page.setViewport({ width: 1600, height: 900});
-        await page.goto(url);
-        await page.waitFor(() => !!document.querySelector('.textlogin'));
-        await page.$eval('input[id=LoginUser_UserName]', el => el.value = '91-20-DEO');
-        await page.$eval('input[id=LoginUser_Password]', el => el.value = 'Pew123@');
-        await page.click('.submit');
-        //wait for Dashboard
-        await page.waitFor(()=>!!document.querySelector('.countBox'));
-        url=url+'secure/OutreachWorkerServices/RegisterEdit2.aspx?ID=1926731';
-        await page.goto(url);
-        // await page.waitFor(2000);
+
+        await page.setViewport({ width: 1366, height: 768});
+        await page.goto('http://www.nzmis.com/');
+      
+       await page.type('#LoginUser_UserName','91-20-DEO');
+       await page.type('#LoginUser_Password','Pew123@');
+       await page.click('#LoginUser_LoginButton');
+        // await page.waitForNavigation({ timeout: 60, waitUntil: 'domcontentloaded' });
+        // await page.click('li[id="ctl00_LeftNavigation_apDataEntry"]');
+        await page.waitFor("li#ctl00_LeftNavigation_apDataEntry");
+         const el =   await page.$("li#ctl00_LeftNavigation_apDataEntry");
+        // await page.$('li#ctl00_LeftNavigation_apDataEntry a:first').click();
+            await el.click();
+            
+            await page.waitForSelector("a#ctl00_LeftNavigation_hlnkServices");
+        const servic = await page.$("a#ctl00_LeftNavigation_hlnkServices");
+            await servic.click();
+          
+            await page.waitForSelector("input#ctl00_cphRightContent_tcTabContainer_tpOutreachWorkerServices_ucOutreachWorkerServices_lbtnAddRecord")
+        const addService= await page.$("input#ctl00_cphRightContent_tcTabContainer_tpOutreachWorkerServices_ucOutreachWorkerServices_lbtnAddRecord");
+            await addService.click();
+
+            await page.waitForNavigation();
+            await page.waitFor('select#ctl00_cphRightContent_ddlArea');
+            await page.select('#ctl00_cphRightContent_ddlArea', '1074');
+            await page.select('#ctl00_cphRightContent_ddlSpot','1626');
+            await page.waitFor(3000);
+
+            // after Adding spot location timing wait for alert and accept it. 
+            await page.on('dialog', async dialog => {
+              
+                await dialog.accept();
+              });
         await page.waitFor('table.grid');
 // Setting Values for Needle Out
         await page.$$eval("input[data-bind='value: NeedleOut']",el=>{
@@ -80,7 +101,7 @@ const BCCServices =require('./BCCServices.js');
            
         await page.waitFor(2000);
         await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
-        await browser.close();
+        // await browser.close();
     }catch(e){
         console.log('our Error',e );
     }
