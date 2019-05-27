@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 
     try{
 
-        const browser = await puppeteer.launch({headless:false});
+        const browser = await puppeteer.launch({headless:false,devtools:false});
         const page= await browser.newPage();
 
         await page.goto('http://www.nzmis.com/');
@@ -17,9 +17,9 @@ const puppeteer = require('puppeteer');
         await page.$eval('input[id=LoginUser_Password]', el => el.value = 'Pew123@');
         await page.click('.submit');
         await page.waitFor(() => !!document.querySelector('.highcharts-point'));
-        await page.goto('http://nzmis.com/secure/OutreachWorkerServices/RegisterEdit2.aspx?ID=1828924&no=5');
+       
         await page.waitFor(5000);
-        await browser.close();
+        // await browser.close();
     }catch(e){
         console.log('our Error',e );
     }

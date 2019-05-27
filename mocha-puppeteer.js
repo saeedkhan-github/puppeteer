@@ -1,28 +1,25 @@
-const assert = require('assert');
+const assert = require('chai').assert;
+const expect = require('chai').expect;
 const puppeteer = require('puppeteer');
 
 let browser
 let page
 
-before(async()=>{
-    browser = await puppeteer.launch();
-    page = await browser.newPage();
+// before(async()=>{
+//     browser = await puppeteer.launch();
+//     page = await browser.newPage();
+
+// });
+
+decribe('Frist test Suit',function(){
+    it( 'test1', () => {
+        const result = true;
+        expect(result).to.equal(true);
+      });
 
 });
 
-decribe('Duck Duc go Search',()=>{
-    it('returns Chrome Puppeteer Github repo as first search result"', async () => {
 
-        await page.goto('http://www.nzmis.com/', { waitUntil: 'networkidle2' });
-      
- 
-    //     const githubLink = await page.evaluate(() => document.querySelector('a.result__a').textContent.trim());
-    //     assert(githubLink, 'https://github.com/GoogleChrome/puppeteer');
-    //     await page.screenshot({ path: 'duckduckgo.png' });
-    //   }).timeout(10000);
-});
- });
-
-after(async () => {
-    await browser.close()
-  });
+// after(async () => {
+//     await browser.close()
+//   });
