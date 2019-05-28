@@ -40,24 +40,48 @@ const BCCServices =require('./BCCServices.js');
        }
     });
    
-      
-
-
 //  Now setting Needle Out Values here
-    await page.$$eval("input[data-bind='value: SyringeOut']", element => {
-        element[0].click();
-        element[0].value = 3;
+    await page.$$("input[data-bind='value: SyringeOut']").then(async(ee)=>{
+        for(var i=0; i<ee.length; i++){
+            await ee[i].click({clickCount:2});
+            await ee[i].type('3');
+            }
+
     });
+                                               // element[0].click();
+                                                // element[0].value = 3;
+
 
 // Setting Syring Type to 3CC
-        await page.$$eval("select[name='ctl00$cphRightContent$ddlSringeType']",el=>{
-            for(i=0; i<el.length; i++){
-                el[i].value="3CC"; 
-            }
-        });
+    await page.$$("select[name='ctl00$cphRightContent$ddlSringeType']").then(async(ee)=>{
+        try {
+            for(var i =0; i<ee.length; i++){
+                await ee[i].click();
+                 await ee[i].type("3CC");
+             }
+        } catch (error) {
+            console.log(error);
+        }
+        
+    });
+
+        // await page.$$eval("select[name='ctl00$cphRightContent$ddlSringeType']",el=>{
+        //     for(i=0; i<el.length; i++){
+        //         el[i].value="3CC"; 
+        //     }
+        // });
 
 // Setting SpritSwab values 
-
+    await page.$$("input[data-bind='value: SpiritSwab']").then(async(ee)=>{
+        try {
+            for(var i =0; i<ee.length; i++){
+                await ee[i].click({clickCount:2});
+                 await ee[i].type('3');
+             }
+        } catch (error) {
+            console.log(error);
+        }
+    });  
         // await page.$$eval("input[data-bind='value: SpiritSwab']",el=>{
         //     for(i=0; i<el.length; i++){
         //         el[i].value=3; 
@@ -65,34 +89,45 @@ const BCCServices =require('./BCCServices.js');
         // });
             
 // Setting Band Aid Values  Bandage
+        await page.$$("input[data-bind='value: Bandage']").then(async(ee)=>{
+            try {
+                for(var i =0; i<ee.length; i++){
+                    await ee[i].click({clickCount:2});
+                    await ee[i].type('3');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
             // await page.$$eval("input[data-bind='value: Bandage']",el=>{
             //     for(i=0; i<el.length; i++){
             //         el[i].value=3; 
             //     }
             // });
 
-        // await page.evaluate(()=>{
-        //     let bccservice;
-        //     let message="HIV";
-        //     if(message=="STI"){
-        //         bccservice="IsSTIs";
-        //     }else if(message=="HIV")
-        //     {
-        //         bccservice="IsHIV";
-        //     }else if(message=="SIP") 
-        //     {
-        //         bccservice="IsSIP";
-        //     }else if(message=="Sex")
-        //     {
-        //         bccservice="IsSaferSex";
-        //     }
+        await page.evaluate(()=>{
+            let bccservice;
+            let message="HIV";
+            if(message=="STI"){
+                bccservice="IsSTIs";
+            }else if(message=="HIV")
+            {
+                bccservice="IsHIV";
+            }else if(message=="SIP") 
+            {
+                bccservice="IsSIP";
+            }else if(message=="Sex")
+            {
+                bccservice="IsSaferSex";
+            }
         
-        //     var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
-        //     for (i=0; i<sti.length; i++) 
-        //         {
-        //             sti[i].checked=true; 
-        //         }
-        // });
+            var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
+            for (i=0; i<sti.length; i++) 
+                {
+                    sti[i].click();
+                    sti[i].checked=true; 
+                }
+        });
            
         await page.waitFor(2000);
         await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
