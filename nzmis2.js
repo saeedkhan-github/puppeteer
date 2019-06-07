@@ -15,19 +15,16 @@ let NumberOfForms=0;
 
         await page.setViewport({ width: 1366, height: 768});
         await page.goto('http://www.nzmis.com/');
+    //  var url2= 'http://www.nzmis.com/secure/OutreachWorkerServices/RegisterEdit.aspx?id=1943448&back=tabbed';
+  
         await  Main.Login(page);
-       
-        
+ 
        await FillForm();
 
-     
-
-    
-      
-
- 
-   
-
+        await page.waitForSelector('input[id="ctl00_cphRightContent_btnAddAnotherTop"]');
+      var el1= await page.$('input[id="ctl00_cphRightContent_btnAddAnotherTop"]');
+          
+        await el1.click();
            
         await page.waitFor(3000);
         await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
@@ -126,6 +123,8 @@ async function FillForm(){
                     sti[i].checked=true; 
                 }
         });
+
+        
 
 
 }
