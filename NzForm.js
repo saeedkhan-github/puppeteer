@@ -32,11 +32,8 @@ Login: async function (page){
         // await page.waitFor(3000);
 
            // after Adding spot location timing wait for alert and accept it. 
-            await page.on('dialog', async dialog => {
-              
-                await dialog.accept();
-              });
-              await page.waitFor('table.grid').then(()=>{
+           
+              await page.waitFor('table.grid',{timeout:0}).then(()=>{
                 
                 console.log(page.url());
             });

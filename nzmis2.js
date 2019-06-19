@@ -5,6 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
+let ServiceOut = '3';
 
 (async function(){
 
@@ -21,13 +22,45 @@ let NumberOfForms=0;
  
        await FillForm();
 
-        await page.waitForSelector('input[id="ctl00_cphRightContent_btnAddAnotherTop"]');
+        await page.waitForSelector('input[id="ctl00_cphRightContent_btnAddAnotherTop"]',{ timeout: 0 }).then(()=>{
+            console.log("Add Another Found");
+        });
       var el1= await page.$('input[id="ctl00_cphRightContent_btnAddAnotherTop"]');
           
         await el1.click();
+
+          await page.waitFor('table.grid',{timeout:0}).then(()=>{
+            
+            console.log(page.url());
+        });
+       
+      await page.waitFor("input[data-bind='value: NeedleOut']");
+
+      
+        await FillForm();
+
+        // Additon for 3rd Form
+
+        await page.waitForSelector('input[id="ctl00_cphRightContent_btnAddAnotherTop"]',{ timeout: 0 }).then(()=>{
+            console.log("Add Another 3rd Found");
+        });
+      var el1= await page.$('input[id="ctl00_cphRightContent_btnAddAnotherTop"]');
+          
+        await el1.click();
+
+          await page.waitFor('table.grid',{timeout:0}).then(()=>{
+            
+            console.log(page.url());
+        });
+       
+      await page.waitFor("input[data-bind='value: NeedleOut']");
+
+      
+        await FillForm();
+
            
         await page.waitFor(3000);
-        await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
+        // await page.screenshot({ path: 'nzmisAutomation.png', fullPage: true });
         // await browser.close();
     }catch(e){
         console.log('our Error',e );
@@ -40,19 +73,21 @@ let NumberOfForms=0;
 
 
 async function FillForm(){
-    // Setting Values for syringe Out
-    await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
-        for(var i=0; i<ee.length; i++){
-       await ee[i].click({clickCount:2});
-       await ee[i].type('3');
-       }
-    });
 
-//  Now setting Needle Out Values here
+
+    // Setting Values for Needle Out
+    // await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
+    //     for(var i=0; i<ee.length; i++){
+    //    await ee[i].click({clickCount:2});
+    //    await ee[i].type('3');
+    //    }
+    // });
+
+//  Now setting syring Out Values here
     await page.$$("input[data-bind='value: SyringeOut']").then(async(ee)=>{
         for(var i=0; i<ee.length; i++){
             await ee[i].click({clickCount:2});
-            await ee[i].type('3');
+            await ee[i].type(ServiceOut);
             }
 
     });
@@ -79,7 +114,7 @@ async function FillForm(){
         try {
             for(var i =0; i<ee.length; i++){
                 await ee[i].click({clickCount:2});
-                 await ee[i].type('3');
+                 await ee[i].type(ServiceOut);
              }
         } catch (error) {
             console.log(error);
@@ -92,7 +127,7 @@ async function FillForm(){
             try {
                 for(var i =0; i<ee.length; i++){
                     await ee[i].click({clickCount:2});
-                    await ee[i].type('3');
+                    await ee[i].type(ServiceOut);
                 }
             } catch (error) {
                 console.log(error);
@@ -102,7 +137,7 @@ async function FillForm(){
 
         await page.evaluate(()=>{
             let bccservice;
-            const message="SEX";
+            let message="STI";  // 'STI' 'HIV' 'SIP' 'SEX'
             if(message=="STI"){
                 bccservice="IsSTIs";
             }else if(message=="HIV")
