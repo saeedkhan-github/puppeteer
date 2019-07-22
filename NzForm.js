@@ -6,7 +6,7 @@ module.exports = {
 Login: async function (page){
 
     await page.type('#LoginUser_UserName','91-20-DEO');
-    await page.type('#LoginUser_Password','Pew123@');
+    await page.type('#LoginUser_Password','nzt123');
     await page.click('#LoginUser_LoginButton');
     // await page.waitForNavigation({ timeout: 60, waitUntil: 'domcontentloaded' });
     // await page.click('li[id="ctl00_LeftNavigation_apDataEntry"]');

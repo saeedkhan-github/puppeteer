@@ -5,7 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
-let ServiceOut = '3';
+let ServiceOut = '6';
 
 (async function(){
 
@@ -14,7 +14,7 @@ let ServiceOut = '3';
         browser = await puppeteer.launch({headless:false,args: ['--start-maximized']});
          page= await browser.newPage();
 
-        await page.setViewport({ width: 1366, height: 768});
+        await page.setViewport({ width: 0, height: 0});
         await page.goto('http://www.nzmis.com/');
     //  var url2= 'http://www.nzmis.com/secure/OutreachWorkerServices/RegisterEdit.aspx?id=1943448&back=tabbed';
   
@@ -76,12 +76,12 @@ async function FillForm(){
 
 
     // Setting Values for Needle Out
-    // await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
-    //     for(var i=0; i<ee.length; i++){
-    //    await ee[i].click({clickCount:2});
-    //    await ee[i].type('3');
-    //    }
-    // });
+    await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
+        for(var i=0; i<ee.length; i++){
+       await ee[i].click({clickCount:2});
+       await ee[i].type(ServiceOut);
+       }
+    });
 
 //  Now setting syring Out Values here
     await page.$$("input[data-bind='value: SyringeOut']").then(async(ee)=>{
@@ -137,7 +137,7 @@ async function FillForm(){
 
         await page.evaluate(()=>{
             let bccservice;
-            let message="STI";  // 'STI' 'HIV' 'SIP' 'SEX'
+            let message="SEX";  // 'STI' 'HIV' 'SIP' 'SEX'
             if(message=="STI"){
                 bccservice="IsSTIs";
             }else if(message=="HIV")
