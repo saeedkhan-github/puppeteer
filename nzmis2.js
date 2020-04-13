@@ -5,7 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
-let ServiceOut = '6';
+let ServiceOut = '21';
 
 (async function(){
 
@@ -74,6 +74,13 @@ let ServiceOut = '6';
 
 async function FillForm(){
 
+    // Setting Client Reg No
+    await page.$$("input[data-bind='value: RegNo']").then(async(ee)=>{
+        for(var i=0; i<ee.length; i++){
+        await ee[i].click({clickCount:2});
+        await ee[i].type('100');
+        }
+    });
 
     // Setting Values for Needle Out
     await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
