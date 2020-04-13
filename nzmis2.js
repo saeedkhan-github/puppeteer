@@ -6,6 +6,7 @@ let browser;
 
 let NumberOfForms=0;
 let ServiceOut = '21';
+let reno=[2,3,4,5,6,];
 
 (async function(){
 
@@ -74,11 +75,12 @@ let ServiceOut = '21';
 
 async function FillForm(){
 
+        
     // Setting Client Reg No
     await page.$$("input[data-bind='value: RegNo']").then(async(ee)=>{
         for(var i=0; i<ee.length; i++){
         await ee[i].click({clickCount:2});
-        await ee[i].type('100');
+        await ee[i].type(reno[0].toString());
         }
     });
 
