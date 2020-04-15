@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const BCCServices =require('./BCCServices.js');
+const clients = require('./assets/clients.js'); // Import client Reg No from Clients.js to be enter in Form
 var  Main= require ('./NzForm');
 let page;
 let browser;
@@ -80,7 +81,7 @@ async function FillForm(){
     await page.$$("input[data-bind='value: RegNo']").then(async(ee)=>{
         for(var i=0; i<ee.length; i++){
         await ee[i].click({clickCount:2});
-        await ee[i].type(reno[0].toString());
+        await ee[i].type(clients[i].toString());
         }
     });
 

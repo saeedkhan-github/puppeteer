@@ -45,13 +45,7 @@ const BCCServices =require('./BCCServices.js');
                 console.log('Table Found');
             });
 
-            // Setting Client Reg No
-            await page.$$("input[data-bind='value: RegNo']").then(async(ee)=>{
-                for(var i=0; i<ee.length; i++){
-                await ee[i].click({clickCount:2});
-                await ee[i].type('100');
-                }
-            });
+            
 
         // Setting Values for Needle Out
         await page.$$("input[data-bind='value: NeedleOut']").then(async(ee)=>{
