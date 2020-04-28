@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
 const BCCServices =require('./BCCServices.js');
-const clients = require('./assets/clients.js'); // Import client Reg No from Clients.js to be enter in Form
+const {form1,form2,form3} = require('./assets/clients.js'); // Import client Reg No from Clients.js to be enter in Form
 var  Main= require ('./NzForm');
 let page;
 let browser;
 
 let NumberOfForms=0;
 let ServiceOut = '21';
-let reno=[2,3,4,5,6,];
+// let reno=[2,3,4,5,6,];
 
 (async function(){
 
@@ -22,7 +22,7 @@ let reno=[2,3,4,5,6,];
   
         await  Main.Login(page);
  
-       await FillForm();
+       await FillForm(form1);
 
         await page.waitForSelector('input[id="ctl00_cphRightContent_btnAddAnotherTop"]',{ timeout: 0 }).then(()=>{
             console.log("Add Another Found");
@@ -39,7 +39,7 @@ let reno=[2,3,4,5,6,];
       await page.waitFor("input[data-bind='value: NeedleOut']");
 
       
-        await FillForm();
+        await FillForm(form2);
 
         // Additon for 3rd Form
 
@@ -58,7 +58,7 @@ let reno=[2,3,4,5,6,];
       await page.waitFor("input[data-bind='value: NeedleOut']");
 
       
-        await FillForm();
+        await FillForm(form3);
 
            
         await page.waitFor(3000);
@@ -74,14 +74,14 @@ let reno=[2,3,4,5,6,];
 
 
 
-async function FillForm(){
+async function FillForm(client){
 
         
     // Setting Client Reg No
     await page.$$("input[data-bind='value: RegNo']").then(async(ee)=>{
         for(var i=0; i<ee.length; i++){
         await ee[i].click({clickCount:2});
-        await ee[i].type(clients[i].toString());
+        await ee[i].type(client[i].toString());
         }
     });
 
@@ -161,11 +161,25 @@ async function FillForm(){
                 bccservice="IsSaferSex";
             }
         
-            var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
-            for (i=0; i<sti.length; i++) 
+            // var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
+            // below queryselectAll is use for All 4 msgs Tick in service sheet,
+            var ms2= document.querySelectorAll("input[data-bind='checked: IsHIV']");
+            var ms3=  document.querySelectorAll("input[data-bind='checked: IsSTIs']");
+            var ms4 = document.querySelectorAll("input[data-bind='checked: IsSIP']");
+            var ms5=  document.querySelectorAll("input[data-bind='checked: IsSaferSex']");
+            for (i=0; i<ms2.length; i++) 
                 {
-                    sti[i].click();
-                    sti[i].checked=true; 
+                    ms2[i].click();
+                    ms2[i].checked=true; 
+
+                    ms3[i].click();
+                    ms3[i].checked=true;
+
+                    ms4[i].click();
+                    ms4[i].checked=true;
+
+                    ms5[i].click();
+                    ms5[i].checked=true;
                 }
         });
 
