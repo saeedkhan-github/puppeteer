@@ -5,7 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
-let ServiceOut = '6';
+let ServiceOut = '21';
 
 (async function(){
 
@@ -13,7 +13,6 @@ let ServiceOut = '6';
 
         browser = await puppeteer.launch({headless:false,args: ['--start-maximized']});
          page= await browser.newPage();
-
         await page.setViewport({ width: 0, height: 0});
         await page.goto('http://www.nzmis.com/');
     //  var url2= 'http://www.nzmis.com/secure/OutreachWorkerServices/RegisterEdit.aspx?id=1943448&back=tabbed';
