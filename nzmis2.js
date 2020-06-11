@@ -5,7 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
-let ServiceOut = '21';
+let ServiceOut = '12';
 
 (async function(){
 
@@ -150,14 +150,27 @@ async function FillForm(){
                 bccservice="IsSaferSex";
             }
         
-            var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
-            for (i=0; i<sti.length; i++) 
+            // var sti= document.querySelectorAll("input[data-bind='checked: "+bccservice+"']"); 
+            // below queryselectAll is use for All 4 msgs Tick in service sheet,
+            var ms2= document.querySelectorAll("input[data-bind='checked: IsHIV']");
+            var ms3=  document.querySelectorAll("input[data-bind='checked: IsSTIs']");
+            var ms4 = document.querySelectorAll("input[data-bind='checked: IsSIP']");
+            var ms5=  document.querySelectorAll("input[data-bind='checked: IsSaferSex']");
+            for (i=0; i<ms2.length; i++) 
                 {
-                    sti[i].click();
-                    sti[i].checked=true; 
+                    ms2[i].click();
+                    ms2[i].checked=true; 
+
+                    ms3[i].click();
+                    ms3[i].checked=true;
+
+                    ms4[i].click();
+                    ms4[i].checked=true;
+
+                    ms5[i].click();
+                    ms5[i].checked=true;
                 }
         });
-
         
 
 
