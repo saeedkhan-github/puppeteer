@@ -5,9 +5,7 @@ let page;
 let browser;
 
 let NumberOfForms=0;
-<<<<<<< HEAD
-let ServiceOut = '9';
-=======
+
 let ServiceOut = '12';
 
 (async function(){
