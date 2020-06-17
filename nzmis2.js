@@ -5,7 +5,11 @@ let page;
 let browser;
 
 let NumberOfForms=0;
+<<<<<<< HEAD
 let ServiceOut = '9';
+=======
+let ServiceOut = '12';
+>>>>>>> 59123d3fb7489466beeec685ce8aad85744b09bd
 
 (async function(){
 
@@ -133,6 +137,7 @@ async function FillForm(){
             }
         });
 
+<<<<<<< HEAD
         // Setting for Surgical Mask,
         await page.$$("input[data-bind='value: SurgicalFaceMask']").then(async(ee)=>{
             try{
@@ -157,6 +162,44 @@ async function FillForm(){
                 console.log(error);
             }
         });
+=======
+// // Setting Surgical Mask Value
+await page.$$("input[data-bind='value: SurgicalFaceMask']").then(async(ee)=>{
+    try {
+        for(var i =0; i<ee.length; i++){
+            await ee[i].click({clickCount:2});
+            await ee[i].type("4");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+// // Setting hand sanitizer value
+await page.$$("input[data-bind='value: HandSanitizer']").then(async(ee)=>{
+    try {
+        for(var i =0; i<ee.length; i++){
+            await ee[i].click({clickCount:2});
+            await ee[i].type("1");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+// // Setting Value for Condoms
+await page.$$("input[data-bind='value: Condoms']").then(async(ee)=>{
+    try {
+        for(var i =0; i<ee.length; i++){
+            await ee[i].click({clickCount:2});
+            await ee[i].type("6");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+>>>>>>> 59123d3fb7489466beeec685ce8aad85744b09bd
 
         await page.evaluate(()=>{
             let bccservice;
