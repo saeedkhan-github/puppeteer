@@ -9,7 +9,6 @@ let NumberOfForms=0;
 let ServiceOut = '9';
 =======
 let ServiceOut = '12';
->>>>>>> 59123d3fb7489466beeec685ce8aad85744b09bd
 
 (async function(){
 
@@ -137,32 +136,7 @@ async function FillForm(){
             }
         });
 
-<<<<<<< HEAD
-        // Setting for Surgical Mask,
-        await page.$$("input[data-bind='value: SurgicalFaceMask']").then(async(ee)=>{
-            try{
-                for(var i=0; i<ee.length; i++){
-                    await ee[i].click({clickCount:2});
-                    await ee[i].type("3");
-                }
-            }
-            catch(error){
-                console.log(error);
-            }
-        });
 
-        // Setting Condoms
-        await page.$$("input[data-bind='value: Condoms']").then(async(ee)=>{
-            try {
-                for(var i =0; i<ee.length; i++){
-                    await ee[i].click({clickCount:2});
-                    await ee[i].type("6");
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        });
-=======
 // // Setting Surgical Mask Value
 await page.$$("input[data-bind='value: SurgicalFaceMask']").then(async(ee)=>{
     try {
@@ -198,8 +172,6 @@ await page.$$("input[data-bind='value: Condoms']").then(async(ee)=>{
         console.log(error);
     }
 });
-
->>>>>>> 59123d3fb7489466beeec685ce8aad85744b09bd
 
         await page.evaluate(()=>{
             let bccservice;
